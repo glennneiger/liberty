@@ -1,4 +1,5 @@
 
+
 // Initialise Pusher
 const pusher = new Pusher('55eb42c4cc7279f47304', {
     cluster: 'us2',
@@ -25,7 +26,7 @@ const channel = pusher.subscribe('movie_bot');
     `)
 });
 
-
+// helper method that takes message and posts to bot, then appends new bot message based on that data
 function submit_message(message) {
 
     $.post( "/send_message", {
@@ -45,7 +46,7 @@ function submit_message(message) {
     }
 }
 
-
+// this is when form submission is made
 $('#target').on('submit', function(e){
     e.preventDefault();
     const input_message = $('#input_message').val()

@@ -2,13 +2,13 @@
 // Most of this is defaults from the project, still need a data.buttons from the back end
 
 // Initialise Pusher
-const pusher = new Pusher('55eb42c4cc7279f47304', {
+const pusher = new Pusher('92992f27c9efddd649df', {
     cluster: 'us2',
     encrypted: true
 });
 
 // Subscribe to movie_bot channel
-const channel = pusher.subscribe('movie_bot');
+const channel = pusher.subscribe('liberty');
 
 // bind new_message event to movie_bot channel
 channel.bind('new_message', function(data) {

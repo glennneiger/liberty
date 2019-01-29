@@ -1,25 +1,26 @@
-{
-	"Disciplinary":{
-		"Drugs And Violence":["Fighting", "Drugs", "Threatening", "Treatment & Rehab"],
-		"Disciplinary":["Anti-Discrimination", "Anti-Harassment", "Pranks", "Discipline"]
-	},
-	"Behavior":{
-		"Outside of Work":["Conflicts of Interest", "Moonlighting", "Entertaining"],
-		"Business Conduct":["Business Conduct", "Confidentiality", "Enforcement", "Standard of Conduct"],
-		"Professionality":["Employee Dress", "Change of Address", "Act Professionally","Equal Opportunity"]
-	},
-	"Benefits":{
-		"Medical":["Medical Plan Choices", "Continuing Health Insurance", "Continuation of Coverage"],
-		"Benefits":["Employee Benefits Plan", "PTO and Sick Leave", "Retirement Plan", "Visa Sponsorship"]
-	},
-	"General":{
-		"Introduction":["Employee Handbook", "Your Handbook", "Welcome to PTG", "Email"],
-		"Hours":["Holidays", "Hours of Work", "Punctuality and Attendance","Voluntary Termination"],
-		"Company Guidelines":["PTG Property", "PTG Social", "Internet Use", "Software Use"],
-		"Work":["Employee Referral Program", "References, Work Eligibility", "Your Personnel File"]
-	},
-	"Salary":{
-		"Refunds and Deductions":["Expense Reimbursements", "Payroll Deductions","Severance Pay", "Wage Garnishments"],
-		"Pay":["Final Paychecks","Salary Pay", "Payday", "Overtime"]
+
+	{
+		"Disciplinary":{
+			"Drugs And Violence":["Fighting", "Drugs", "Threatening", "Treatment & Rehab"],
+			"Disciplinary":["Anti-Discrimination", "Anti-Harassment", "Pranks", "Discipline"]
+		},
+		"Behavior":{
+			"Outside of Work":["Conflicts of Interest", "Moonlighting", "Entertaining"],
+			"Business Conduct":["Business Conduct", "Confidentiality", "Enforcement", "Standard of Conduct"],
+			"Professionality":["Employee Dress", "Change of Address", "Act Professionally","Equal Opportunity"]
+		},
+		"Benefits":{
+			"Medical":["Medical Plan Choices", "Continuing Health Insurance", "Continuation of Coverage"],
+			"Benefits":["Employee Benefits Plan", "PTO and Sick Leave", "Retirement Plan", "Visa Sponsorship"]
+		},
+		"General":{
+			"Introduction":["Employee Handbook", "Your Handbook", "Welcome to PTG", "Email"],
+			"Hours":["Holidays", "Hours of Work", "Punctuality and Attendance","Voluntary Termination"],
+			"Company Guidelines":["PTG Property", "PTG Social", "Internet Use", "Software Use"],
+			"Work":["Employee Referral Program", "References, Work Eligibility", "Your Personnel File"]
+		},
+		"Salary":{
+			"Refunds and Deductions":["Expense Reimbursements", "Payroll Deductions","Severance Pay", "Wage Garnishments"],
+			"Pay":["Final Paychecks","Salary Pay", "Payday", "Overtime"]
+		}
 	}
-}

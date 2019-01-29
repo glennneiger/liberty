@@ -1,4 +1,5 @@
-
+// erics_branch
+// Most of this is defaults from the project, still need a data.buttons from the back end
 
 // Initialise Pusher
 const pusher = new Pusher('55eb42c4cc7279f47304', {
@@ -9,22 +10,23 @@ const pusher = new Pusher('55eb42c4cc7279f47304', {
 // Subscribe to movie_bot channel
 const channel = pusher.subscribe('movie_bot');
 
-  // bind new_message event to movie_bot channel
-  channel.bind('new_message', function(data) {
-   // Append human message
-    $('.chat-container').append(`
-        <div class="chat-message col-md-5 human-message">
-            ${input_message}
-        </div>
-    `)
+// bind new_message event to movie_bot channel
+channel.bind('new_message', function(data) {
+  // Append human message
+  $('.chat-container').append(`
+      <div class="chat-message human-message">
+          ${input_message}
+      </div>
+  `)
 
-    // Append bot message
-    $('.chat-container').append(`
-        <div class="chat-message col-md-5 offset-md-7 bot-message">
-            ${data.message}
-        </div>
-    `)
+  // Append bot message
+  $('.chat-container').append(`
+      <div class="chat-message offset-md-7 bot-message">
+          ${data.message}
+      </div>
+  `)
 });
+
 
 // helper method that takes message and posts to bot, then appends new bot message based on that data
 function submit_message(message) {
@@ -35,42 +37,75 @@ function submit_message(message) {
     }, handle_response);
 
     function handle_response(data) {
-      // append the bot repsonse to the div
-      $('.chat-container').append(`
-            <div class="chat-message col-md-5 offset-md-7 bot-message">
+
+      console.log(data.message);
+
+      // checks if data.list exists
+      // try if below doesn't work
+      //if (data.list !== null)
+      if (typeof data !== 'undefined') {
+        console.log('got to list message');
+        
+        // Append initial container
+        $(".chat-container").append(`
+          <div class="chat-message bot-message">
+            Pick a topic:
+            <div class="menu-container">
+              <div class="button-container"></div>
+            </div>
+          </div>
+        `);
+
+        // iterate over each element in data and display them as buttons  
+        $.each(data, function(index, element) {
+          $(".button-container").append(`
+            <button class="topic-btn">${element.name}</button>	
+          `);  
+        });
+
+      }
+
+      else {
+
+        // this is the default message without list parameter
+
+        console.log(data.message);
+        $('.chat-container').append(`
+            <div class="chat-message bot-message">
                 ${data.message}
             </div>
-      `)
-      // remove the loading indicator
-      $( "#loading" ).remove();
+        `)
+        // remove the loading indicator
+        $( "#loading" ).remove();
+      }
     }
 }
 
 // this is when form submission is made
 $('#target').on('submit', function(e){
-    e.preventDefault();
-    const input_message = $('#input_message').val()
-    // return if the user does not enter any text
-    if (!input_message) {
-      return
-    }
+  e.preventDefault();
+  const input_message = $('#input_message').val()
+  // return if the user does not enter any text
+  if (!input_message) {
+    return
+  }
 
-    $('.chat-container').append(`
-        <div class="chat-message col-md-5 human-message">
-            ${input_message}
-        </div>
-    `)
+  $('.chat-container').append(`
+      <div class="chat-message human-message">
+          ${input_message}
+      </div>
+  `)
 
-    // loading
-    $('.chat-container').append(`
-        <div class="chat-message text-center col-md-2 offset-md-10 bot-message" id="loading">
-            <b>...</b>
-        </div>
-    `)
+  // loading
+  $('.chat-container').append(`
+      <div class="chat-message text-center bot-message" id="loading">
+          <b>...</b>
+      </div>
+  `)
 
-    // clear the text input
-    $('#input_message').val('')
+  // clear the text input
+  $('#input_message').val('')
 
-    // send the message
-    submit_message(input_message)
+  // send the message
+  submit_message(input_message)
 });

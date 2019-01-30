@@ -1,34 +1,126 @@
-body,html {
-    height: 100%;
+#chatbot-body {
+  padding: 0px 0px;
+  width: 354px;
+  height: 462px;
+  border: 1px solid black;
 }
 
-.chat-container {
-    margin: 0px;
-    padding: px;
+/** Banner Styles **/
+#banner {
+  padding: 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-column-gap: 1px; */
+  background-color: black;
+  height: 70px;
+  background: lightgrey;
+  background-color: lightgrey; 
+  height: 75px;
+}
+
+#banner-text {
+  /* border: 1px solid black; */
+  transform: translateY(25px);
+  font-size: 20pt;
+  color: grey;
+  
+}
+
+#icon-box {
+  /* border: 1px solid black; */
+}
+
+#icon {  
+  float: right;
+  transform: translateY(10px);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: grey;
+}
+
+svg {
+  float: right;
+  cursor: pointer;
+}
+
+/*** chat-container ***/
+#chat-area {
+  /* display: flex;
+  flex-direction: column; */
+  background-color: white;
+  height: 309px;
+  overflow-y: scroll;  
 }
 
 .chat-message {
   padding: 6px;
   border-radius: 13px;
-  margin-bottom: 13px;
+  margin-bottom: 15px;  
+  /* max-width: 300px; */
+  word-wrap: normal;
 }
 
 .bot-message {
-    background: #006666;
-    color: white;
-
+  float: left;
+  width: 100%;
+  background-color: #e1e4ea;
 }
 
 .human-message {
-    background: dodgerblue;
-    color: white;
-    margin: 13px 1px;
+  text-align: right;
+  float: right;
+  width: 100%;
+  background: #b5b8bc;
+  /* margin: 13px 1px; */
+}
+
+.button-container {
+  width: auto;
+  overflow-y: auto;
+}
+
+.topic-btn {
+  font-size: .8em;
+  width: 75px;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  cursor: pointer;
+  float: left;
+  background: white;
+  margin: 10px;
+}
+
+
+/* Keyphrase area */
+#keyphrase-area {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  height: auto;
+}
+
+/* Input area */
+#input-area {
+  width: auto;
+  height: 75px;
 }
 
 .input {
   width: 100%;
-  margin: 35px 0px;
-  height: 60px;
-  border: 1px solid rosybrown;
-  border-radius: 3px;
+  height: 50px;
 }
+
+/* Responsive for phones */
+@media (max-width: 415px) {
+  #chatbot-body {
+    min-height: 640px;
+  }
+
+  #chat-area {
+    background-color: lightblue;
+    min-height: 487px;
+    overflow-y: scroll;
+  }
+}
+

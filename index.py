@@ -5,7 +5,8 @@ import requests
 import json
 import pusher
 
-
+global success
+success=False
 app = Flask(__name__)
 
 # initialize Pusher
@@ -16,7 +17,6 @@ pusher_client = pusher.Pusher(
   cluster='us2',
   ssl=True
 )
-
 # Employee Database holder
 employee_db = {'12345': ['robert', 'robert@2019', 'Robert'], '12346': ['arthur', 'arthur@2019', 'Arthur'], '12347': ['cobb', 'cobb@2019', 'Cobb'],
                '12348': ['bruce', 'bruce@2019', 'Bruce'], '12349': ['ariadne', 'ariadne@2019', 'Ariadne']}
@@ -39,6 +39,7 @@ def test():
 
 @app.route('/get_login_detail', methods=['POST'])
 def get_login_detail():
+    global success
     data = request.get_json(silent=True)
     response = ""
     try:
@@ -53,7 +54,8 @@ def get_login_detail():
             print("Expected Password: ", employee_db[userid][1])
             if(userid in employee_db.keys()):
                 if(employee_db[userid][1]==password):
-                    print("Yes")
+                    success=True
+                    print(success)
                     response = "Welcome {0}, what category would you like to find out more about today?".format(employee_db[userid][2])
         if data['queryResult']['action'] == 'MainCat':
             print('check 2')
@@ -95,7 +97,8 @@ def send_message():
     print(message)
     project_id = 'liberty-735ff'
     fulfillment_text = detect_intent_texts(project_id, "unique", message, 'en')
-    response_text = {"message": fulfillment_text}
+    print("Success Status: ", success)
+    response_text = {"message": fulfillment_text, "key":success}
     socketId = request.form['socketId']
     pusher_client.trigger('liberty', 'new_message',
                           {'human_message': message, 'bot_message': fulfillment_text}, socketId)

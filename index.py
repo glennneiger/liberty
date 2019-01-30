@@ -1,12 +1,24 @@
 from flask import Flask, request, jsonify, render_template
-import os
+# import os
 import dialogflow
-import requests
+# import requests
 import json
 import pusher
 
+global maincat
+
+maincat=''
+
 global success
+
 success=False
+
+global subcat
+
+subcat=''
+
+
+# default is false
 app = Flask(__name__)
 
 # initialize Pusher
@@ -21,10 +33,8 @@ pusher_client = pusher.Pusher(
 employee_db = {'12345': ['robert', 'robert@2019', 'Robert'], '12346': ['arthur', 'arthur@2019', 'Arthur'], '12347': ['cobb', 'cobb@2019', 'Cobb'],
                '12348': ['bruce', 'bruce@2019', 'Bruce'], '12349': ['ariadne', 'ariadne@2019', 'Ariadne']}
 
-# Main Category to Sub Categories holder
-categories = {'Disciplinary': ['Drugs and Violence', 'Other Disciplinary Actions'], 'Behavior': ['Outside of Work', 'Business Conduct', 'Professionality'],
-            'Benefits': ['Medical Benefits', 'Other Benefits'], 'General': ['Introduction to Company', 'Hours', 'Company Guidelines', 'Work'],
-            'Salary': ['Refunds and Deductions', 'Pay']}
+
+j = json.loads(open('categories.json').read())
 
 
 @app.route('/')
@@ -39,9 +49,11 @@ def test():
 
 @app.route('/get_login_detail', methods=['POST'])
 def get_login_detail():
-    global success
     data = request.get_json(silent=True)
     response = ""
+    global maincat
+    global success
+    global subcat
     try:
         if data['queryResult']['action'] == 'employee_username':
             print('Check 1')
@@ -54,19 +66,44 @@ def get_login_detail():
             print("Expected Password: ", employee_db[userid][1])
             if(userid in employee_db.keys()):
                 if(employee_db[userid][1]==password):
+                    print("Yes")
                     success=True
-                    print(success)
                     response = "Welcome {0}, what category would you like to find out more about today?".format(employee_db[userid][2])
         if data['queryResult']['action'] == 'MainCat':
             print('check 2')
             response = "Category doesn't exist, choose another one"
             maincat = data['queryResult']['parameters']['maincat']
-            if(maincat in categories.keys()):
+            if(maincat in j.keys()):
                 subs = ''
-                for i in range(0, len(categories[maincat])-1):
-                    subs += categories[maincat][i] + ', '
-                subs += 'or '+categories[maincat][len(categories[maincat])-1]
+                subcats = list(j[maincat].keys())
+                print(subcats)
+                for i in range(0, len(subcats)-1):
+                    print(i)
+                    subs += subcats[i] + ', '
+                    print(subs)
+                subs += 'or '+subcats[len(subcats)-1]
                 response = 'Under {0}, would you like to find out more about {1}?'.format(maincat, subs)
+        if data['queryResult']['action'] == 'subcategory':
+            print('check 3')
+            response = "Sub Category doesn't exist, choose another one"
+            subcat = data['queryResult']['parameters']['subcat']
+            print("Subcat: ", subcat)
+            print(type(subcat))
+            print("Maincat: ", cat)
+            print(j[cat].keys())
+            if(subcat in j[cat].keys()):
+                print('Entered Key Value')
+                leafs = j[cat][subcat]
+                print('Category: ', cat)
+                print('Leafs: ', leafs)
+                choices = ''
+                for i in range(0, len(leafs)-1):
+                    print(i)
+                    choices += leafs[i] + ', '
+                    print(choices)
+
+                choices += 'or ' + leafs[-1]
+                response = 'Under {0}, would you like to find out more about {1}?'.format(subcat, choices)
 
     except:
         response = ""
@@ -76,6 +113,19 @@ def get_login_detail():
     }
 
     return jsonify(reply)
+
+def buttons(j, success, maincat, subcat):
+    if(success==True):
+        if(maincat == ''):
+            return list(j.keys())
+        else:
+            if(subcat == ''):
+                return list(j[maincat].keys())
+            else:
+                return j[maincat][subcat]
+    else:
+        return None;
+
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
@@ -98,7 +148,11 @@ def send_message():
     project_id = 'liberty-735ff'
     fulfillment_text = detect_intent_texts(project_id, "unique", message, 'en')
     print("Success Status: ", success)
-    response_text = {"message": fulfillment_text, "key":success}
+    b = buttons(j, success, maincat, subcat)
+    response_text = {"message": fulfillment_text, "key":success, "buttons": b}
+    print('Button value: ', b)
+    print("Main Category: ", maincat)
+    print("Sub Category: ", subcat)
     socketId = request.form['socketId']
     pusher_client.trigger('liberty', 'new_message',
                           {'human_message': message, 'bot_message': fulfillment_text}, socketId)

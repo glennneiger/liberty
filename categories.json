@@ -2,7 +2,7 @@
 	{
 		"Disciplinary":{
 			"Drugs And Violence":["Fighting", "Drugs", "Threatening", "Treatment & Rehab"],
-			"Disciplinary":["Anti-Discrimination", "Anti-Harassment", "Pranks", "Discipline"]
+			"Other Disciplinary Issues":["Anti-Discrimination", "Anti-Harassment", "Pranks", "Discipline"]
 		},
 		"Behavior":{
 			"Outside of Work":["Conflicts of Interest", "Moonlighting", "Entertaining"],
@@ -10,8 +10,8 @@
 			"Professionality":["Employee Dress", "Change of Address", "Act Professionally","Equal Opportunity"]
 		},
 		"Benefits":{
-			"Medical":["Medical Plan Choices", "Continuing Health Insurance", "Continuation of Coverage"],
-			"Benefits":["Employee Benefits Plan", "PTO and Sick Leave", "Retirement Plan", "Visa Sponsorship"]
+			"Medical Benefits":["Medical Plan Choices", "Continuing Health Insurance", "Continuation of Coverage"],
+			"Other Benefits":["Employee Benefits Plan", "PTO and Sick Leave", "Retirement Plan", "Visa Sponsorship"]
 		},
 		"General":{
 			"Introduction":["Employee Handbook", "Your Handbook", "Welcome to PTG", "Email"],

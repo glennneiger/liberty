@@ -89,13 +89,14 @@ def get_login_detail():
             subcat = data['queryResult']['parameters']['subcat']
             print("Subcat: ", subcat)
             print(type(subcat))
-            print("Maincat: ", cat)
-            print(j[cat].keys())
-            if(subcat in j[cat].keys()):
+            print("Maincat: ", maincat)
+            print(j[maincat].keys())
+            if(subcat in j[maincat].keys()):
                 print('Entered Key Value')
-                leafs = j[cat][subcat]
-                print('Category: ', cat)
+                leafs = j[maincat][subcat]
+                print('Category: ', maincat)
                 print('Leafs: ', leafs)
+#               success=False
                 choices = ''
                 for i in range(0, len(leafs)-1):
                     print(i)
@@ -124,7 +125,7 @@ def buttons(j, success, maincat, subcat):
             else:
                 return j[maincat][subcat]
     else:
-        return None;
+        return None
 
 
 
@@ -143,6 +144,8 @@ def detect_intent_texts(project_id, session_id, text, language_code):
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
+    global subcat
+    global success
     message = request.form['message']
     print(message)
     project_id = 'liberty-735ff'
@@ -150,6 +153,8 @@ def send_message():
     print("Success Status: ", success)
     b = buttons(j, success, maincat, subcat)
     response_text = {"message": fulfillment_text, "key":success, "buttons": b}
+    if(subcat != ''):
+        success=False
     print('Button value: ', b)
     print("Main Category: ", maincat)
     print("Sub Category: ", subcat)

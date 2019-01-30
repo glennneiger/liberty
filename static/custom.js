@@ -73,7 +73,7 @@ function submit_message(message) {
       // Append initial container
       $(".chat-container").append(`
         <div class="chat-message bot-message">
-          Pick a topic:
+          ${data.message}
           <div class="menu-container">
             <div id="btn_cont_${counter}" class="button-container">
             </div>

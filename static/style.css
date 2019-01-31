@@ -81,15 +81,16 @@ svg {
 }
 
 .topic-btn {
-  font-size: .8em;
-  width: 75px;
-  height: 50px;
+  font-size: .7em;
+  width: 79px;
+  height: 60px;
   border-radius: 10px;
   border: 1px solid grey;
   cursor: pointer;
   float: left;
   background: white;
-  margin: 10px;
+  margin: 9px;
+
 }
 
 

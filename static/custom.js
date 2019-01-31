@@ -27,6 +27,12 @@ $('.chat-container').append(`
 
 var counter = 1;
 
+// scroll to bottom jQuery function
+function scrollToBottom() {
+    $('.chat-container').scrollTop($('.chat-container')[0].scrollHeight);
+    console.log('scrolled');
+}
+
 
 // helper method that takes message and posts to bot, then appends new bot message based on that data
 function submit_message(message) {
@@ -37,9 +43,6 @@ function submit_message(message) {
   }, handle_response);
 
   function handle_response(data) {
-
-    // scroll to bottom jQuery function
-    var scrollToBottom = () => $('.chat-container').scrollTop($('.chat-container')[0].scrollHeight);
 
     console.log(data);
     console.log('data.message is: ' + data.message);
@@ -53,11 +56,6 @@ function submit_message(message) {
     console.log(typeof data.buttons);
     console.log(typeof list);
     console.log(list);
-
-//
-//      for (i=0; i < list.length; i++) {
-//        console.log(list[i]);
-//      }
 
     // checks if data.list exists
     // try if below doesn't work
@@ -107,14 +105,15 @@ function submit_message(message) {
           </div>
         `);
 
-        // here we should do a call to backend to make data.key to false
-        // also dynamic id's for each chat message would be nice
-
         // submit value through submit function
         submit_message(value)
 
       });
-      
+
+      // remove the loading indicator
+      $( "#loading" ).remove();
+
+      scrollToBottom();
 
     }
 
@@ -130,6 +129,8 @@ function submit_message(message) {
       `)
       // remove the loading indicator
       $( "#loading" ).remove();
+
+      scrollToBottom();
     }
   }
 }
